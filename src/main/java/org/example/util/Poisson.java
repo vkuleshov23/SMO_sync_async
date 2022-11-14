@@ -1,7 +1,5 @@
 package org.example.util;
 
-import cern.jet.random.engine.DRand;
-import cern.jet.random.engine.RandomEngine;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,14 +9,19 @@ import lombok.Setter;
 public class Poisson {
 
     private double lambda;
-    private cern.jet.random.Poisson poisson;
 
     public Poisson(double lambda) {
         this.lambda = lambda;
-        this.poisson = new cern.jet.random.Poisson(this.lambda, new DRand());
     }
 
     public int next() {
-        return this.poisson.nextInt();
+        double L = Math.exp(-lambda);
+        double p = 1.0;
+        int result = 0;
+        do {
+            result++;
+            p *= Math.random();
+        } while (p > L);
+        return result - 1;
     }
 }

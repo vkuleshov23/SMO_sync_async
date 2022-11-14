@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.model.AsyncM;
 import org.example.model.SyncM;
 import org.example.util.Consts;
+import org.example.util.Poisson;
 import org.example.util.TaskM;
 import org.springframework.stereotype.Service;
 

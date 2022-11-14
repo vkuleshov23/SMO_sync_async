@@ -26,7 +26,7 @@ public abstract class QueueM {
         if (lambda == 1) {
             return 1;
         }
-        return lambda * ((2 - lambda)) / (2 * (1 - lambda));
+        return (lambda * ((2 - lambda))) / (2 * (1 - lambda));
     }
 
     protected double calculateD(double lambda) {

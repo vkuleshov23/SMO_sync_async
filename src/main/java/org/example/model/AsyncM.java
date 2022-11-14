@@ -24,16 +24,16 @@ public class AsyncM extends QueueM {
         while (!newTasks.isEmpty()|| !queue.isEmpty()) {
             int newTaskCount = 0;
             if(!newTasks.isEmpty()) newTaskCount = newTasks.removeFirst();
-            boolean isEmpty = queue.isEmpty();
+//            boolean isEmpty = queue.isEmpty();
             for (int i = 0; i < newTaskCount; i++) {
-                if (isEmpty) {
-                    queue.addLast(0.0);
-                } else {
-                    queue.addLast( Math.random());
-                }
+//                if(isEmpty) {
+                    queue.addLast(1.0);
+//                } else {
+//                    queue.addLast(Math.random());
+//                }
             }
             members.addLast(queue.size());
-            if (!queue.isEmpty()) taskTime.addLast(queue.removeFirst() + 1.0);
+            if (!queue.isEmpty()) taskTime.addLast(queue.removeFirst());
             queue.replaceAll(n -> n + 1.0);
         }
         practice.setN(members.stream().mapToDouble(x -> x).sum() / members.size());

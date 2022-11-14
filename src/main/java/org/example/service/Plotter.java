@@ -1,46 +1,47 @@
 package org.example.service;
 
 import com.github.sh0nk.matplotlib4j.Plot;
+import com.github.sh0nk.matplotlib4j.PyCommand;
+import com.github.sh0nk.matplotlib4j.PythonConfig;
 import lombok.SneakyThrows;
-import org.example.model.AsyncM;
 import org.example.model.QueueM;
-import org.example.model.SyncM;
-import org.example.util.Consts;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class Plotter {
 
     @SneakyThrows
     public void plotD(List<QueueM> queueMS, String title, String ylabel) {
-        List<Double> x = queueMS.stream().map(QueueM::getLambda).toList();
-        List<Double> Dt = queueMS.stream().map(queueM -> queueM.getTheory().getD()).toList();
-        List<Double> Dp = queueMS.stream().map(queueM -> queueM.getPractice().getD()).toList();
+        List<Double> x = queueMS.stream().map(QueueM::getLambda).collect(Collectors.toList());
+        List<Double> Dt = queueMS.stream().map(queueM -> queueM.getTheory().getD()).collect(Collectors.toList());
+        List<Double> Dp = queueMS.stream().map(queueM -> queueM.getPractice().getD()).collect(Collectors.toList());
 
         Plot plt = Plot.create();
-        plt.plot().add(x, Dp, "-").label("Practice").linewidth(5);
+        plt.plot().add(x, Dp, "-").label("Practice");
         plt.plot().add(x, Dt, "-").label("Theory");
         plt.title(title);
         plt.xlabel("$lambda$");
         plt.ylabel(ylabel);
+        plt.legend();
         plt.show();
     }
 
     @SneakyThrows
     public void plotN(List<QueueM> queueMS, String title, String ylabel) {
-        List<Double> x = queueMS.stream().map(QueueM::getLambda).toList();
-        List<Double> Nt = queueMS.stream().map(queueM -> queueM.getTheory().getN()).toList();
-        List<Double> Np = queueMS.stream().map(queueM -> queueM.getPractice().getN()).toList();
+        List<Double> x = queueMS.stream().map(QueueM::getLambda).collect(Collectors.toList());
+        List<Double> Nt = queueMS.stream().map(queueM -> queueM.getTheory().getN()).collect(Collectors.toList());
+        List<Double> Np = queueMS.stream().map(queueM -> queueM.getPractice().getN()).collect(Collectors.toList());
 
         Plot plt = Plot.create();
-        plt.plot().add(x, Np, "-").label("Practice").linewidth(5);
+        plt.plot().add(x, Np, "-").label("Practice");
         plt.plot().add(x, Nt, "-").label("Theory");
         plt.title(title);
         plt.xlabel("$lambda$");
         plt.ylabel(ylabel);
+        plt.legend();
         plt.show();
     }
 

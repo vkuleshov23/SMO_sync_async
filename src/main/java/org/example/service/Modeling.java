@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -34,13 +35,13 @@ public class Modeling {
     }
 
     private void plotA(List<TaskM> queueMS) {
-        plotter.plotAD(queueMS.stream().skip(1).map(TaskM::getModel).toList());
-        plotter.plotAN(queueMS.stream().map(TaskM::getModel).toList());
+        plotter.plotAD(queueMS.stream().skip(1).map(TaskM::getModel).collect(Collectors.toList()));
+        plotter.plotAN(queueMS.stream().map(TaskM::getModel).collect(Collectors.toList()));
     }
 
     private void plotS(List<TaskM> queueMS) {
-        plotter.plotSD(queueMS.stream().skip(1).map(TaskM::getModel).toList());
-        plotter.plotSN(queueMS.stream().map(TaskM::getModel).toList());
+        plotter.plotSD(queueMS.stream().skip(1).map(TaskM::getModel).collect(Collectors.toList()));
+        plotter.plotSN(queueMS.stream().map(TaskM::getModel).collect(Collectors.toList()));
     }
 
     private List<TaskM> generateSync() {

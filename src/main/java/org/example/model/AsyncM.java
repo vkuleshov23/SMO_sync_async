@@ -16,18 +16,25 @@ public class AsyncM extends QueueM {
 
     @Override
     public void modeling() {
-        LinkedList<Integer> queue = new LinkedList<>();
+        LinkedList<Double> queue = new LinkedList<>();
         LinkedList<Integer> members = new LinkedList<>();
-        LinkedList<Integer> taskTime = new LinkedList<>();
+        LinkedList<Double> taskTime = new LinkedList<>();
         LinkedList<Integer> newTasks = this.generateNewTasks(this.lambda, Consts.selection);
 
-        while (newTasks.size() > 0 || queue.size() > 0) {
+        while (!newTasks.isEmpty()|| !queue.isEmpty()) {
             int newTaskCount = 0;
-            if(newTasks.size() > 0) newTaskCount = newTasks.removeFirst();
-            for (int i = 0; i < newTaskCount; i++) queue.addLast(0);
-            queue.replaceAll(integer -> integer + 1);
+            if(!newTasks.isEmpty()) newTaskCount = newTasks.removeFirst();
+            boolean isEmpty = queue.isEmpty();
+            for (int i = 0; i < newTaskCount; i++) {
+                if (isEmpty) {
+                    queue.addLast(0.0);
+                } else {
+                    queue.addLast( Math.random());
+                }
+            }
             members.addLast(queue.size());
-            if (queue.size() > 0) taskTime.addLast(queue.removeFirst());
+            if (!queue.isEmpty()) taskTime.addLast(queue.removeFirst() + 1.0);
+            queue.replaceAll(n -> n + 1.0);
         }
         practice.setN(members.stream().mapToDouble(x -> x).sum() / members.size());
         practice.setD(taskTime.stream().mapToDouble(x -> x).sum() / taskTime.size());
